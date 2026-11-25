@@ -161,18 +161,50 @@
       ["Cutting onion damages cells and releases volatile sulphur compounds that irritate the eyes.","Onions are photoperiod-sensitive: day length helps determine bulb formation.","Curing dries the neck and outer scales, improving storage life."],
       [sources.usda,sources.extensionGarden,sources.extensionHarvest,sources.canadaSafety,sources.canadaStorage])
   ];
+
+  // PRODUCE AI v2: this project intentionally supports fruits only.
+  const keepFruitKeys = new Set(["apple","banana","orange","grape","strawberry"]);
+  const selectedFruitProfiles = P.filter(item => keepFruitKeys.has(item.k));
+  const simpleFruitProfile = (k,n,scientific,description,origin,varieties,emoji,nutrition,growing,health,preparation,facts) => ({
+    k,n,kind:"Fruit",scientific,classification:"Edible fruit",
+    description,origin,varieties,physical:description,
+    nutrition:{basis:"Approximate raw edible portion; values vary by variety and maturity",...nutrition},
+    growing:{climate:growing,temperature:"Variety and climate dependent.",soil:"Well-drained soil suited to the plant.",sunlight:"Bright sunlight; exact needs vary by cultivar.",water:"Water consistently while avoiding waterlogged roots.",planting:"Use a locally suitable nursery plant or seeds from a reliable source.",germination:"Varies by cultivar and growing conditions.",difficulty:"Moderate; climate suitability matters.",timeline:"Timing varies by cultivar and growing region.",harvesting:"Harvest when mature and characteristic in colour, texture and aroma.",problems:"Pests and diseases vary by region; consult a local horticulture extension service.",season:"Season depends on climate and production region."},
+    safety:{edible:"The ripe fruit flesh is commonly eaten.",avoid:"Discard fruit with visible mould, leaking rot, sliminess or an off odour. Do not taste visibly spoiled produce.",washing:commonSafety.wash,prep:"Wash under cool running water before cutting. Use clean utensils and refrigerate cut fruit promptly.",spoilage:"Visible mould, leaking tissue, sliminess, fermented odour or extensive soft breakdown are warning signs.",allergy:"Food allergies are possible. Avoid the fruit if you have a known allergy.",warnings:commonSafety.imageLimit},
+    storage:{refrigeration:"Refrigerate ripe or cut fruit in a clean covered container.",room:"Ripen firm fruit at room temperature when appropriate; avoid heat and direct sunlight.",freezing:"Prepare into pieces and freeze in an airtight container; texture changes after thawing.",shelf:"Shelf life varies with maturity, handling and temperature.",fresh:"Choose fruit with intact skin and no visible mould, leaking or extensive soft spots."},
+    health,preparation,facts,sources:[sources.usda,sources.canadaSafety,sources.canadaStorage]
+  });
+  selectedFruitProfiles.push(
+    simpleFruitProfile("guava","Guava","Psidium guajava","A tropical fruit with aromatic flesh that may be white, pink, red or yellow, containing many small edible seeds.","Native to tropical America and now cultivated in tropical and subtropical regions worldwide.","Pink guava, white guava, red Malaysian guava, Thai guava","🍈",
+      {kcal:68,protein:2.6,carbohydrate:14.3,fat:1.0,fibre:5.4,water:80.8,vitamins:"Especially rich in vitamin C; also provides vitamin A and folate.",minerals:"Potassium and smaller amounts of magnesium."},
+      "Tropical and subtropical; sensitive to frost and prolonged cold.",
+      ["Provides vitamin C and dietary fibre.","Contains plant compounds such as carotenoids and polyphenols.","Whole fruit provides fibre as well as water."],
+      {wash:"Rinse well; the skin is edible when clean.",rawCooked:"Often eaten fresh; also used in juice, sauces and preserves.",methods:"Slice, blend, simmer into a sauce or cook into jam.",ideas:"Fresh guava, guava smoothie, guava paste, fruit salad."},
+      ["Guava flesh colour varies by cultivar.","The small seeds are usually edible.","Guava trees can tolerate a range of tropical growing conditions."]
+    ),
+    simpleFruitProfile("pomegranate","Pomegranate","Punica granatum","A round fruit with a tough outer rind and jewel-like edible arils surrounding each seed.","Cultivated for thousands of years across the region from Iran to northern India, and now grown in warm regions worldwide.","Wonderful, Angel Red, Eversweet, Parfianka","🍎",
+      {kcal:83,protein:1.7,carbohydrate:18.7,fat:1.2,fibre:4.0,water:77.9,vitamins:"Provides vitamin C, vitamin K and folate.",minerals:"Potassium and small amounts of copper."},
+      "Warm temperate to subtropical; established plants tolerate some dry conditions but young plants need reliable water.",
+      ["Arils provide fibre and water.","Pomegranate contains polyphenols, including punicalagins in the juice and peel.","Whole arils provide more fibre than strained juice."],
+      {wash:"Wash the outside before cutting; keep the knife and work surface clean.",rawCooked:"Arils are commonly eaten fresh and used in cooked dishes.",methods:"Remove arils, sprinkle over salads, simmer into sauces or press for juice.",ideas:"Pomegranate salad, yoghurt topping, grain bowl, molasses sauce."},
+      ["The edible juicy parts are called arils.","Each aril surrounds a seed, which is also edible.","Pomegranate is botanically a berry."]
+    )
+  );
+  P.splice(0, P.length, ...selectedFruitProfiles);
   const aliases = {
-    "apple":"apple","banana":"banana","orange":"orange","grape":"grape","grapes":"grape",
-    "strawberry":"strawberry","strawberries":"strawberry","watermelon":"watermelon","kiwi":"kiwi","kiwifruit":"kiwi",
-    "lettuce":"lettuce","lemon":"lemon","tomato":"tomato","tomatoes":"tomato","cucumber":"cucumber","cucumbers":"cucumber",
-    "green pepper":"green-pepper","green peppers":"green-pepper","bell pepper":"green-pepper","green bell pepper":"green-pepper",
-    "carrot":"carrot","carrots":"carrot","onion":"onion","onions":"onion"
+    "apple":"apple","edible apple":"apple","inedible apple":"apple",
+    "banana":"banana","edible banana":"banana","inedible banana":"banana",
+    "orange":"orange","edible orange":"orange","inedible orange":"orange",
+    "grape":"grape","grapes":"grape","edible grapes":"grape","inedible grapes":"grape",
+    "strawberry":"strawberry","edible strawberry":"strawberry","inedible strawberry":"strawberry",
+    "guava":"guava","edible guava":"guava","inedible guava":"guava",
+    "pomegranate":"pomegranate","edible pomegranate":"pomegranate","inedible pomegranate":"pomegranate"
   };
   const normalize = value => String(value == null ? "" : value).trim().toLowerCase().replace(/[_-]+/g," ").replace(/\s+/g," ");
   window.PRODUCE_SAFETY_GUIDE = commonSafety;
   window.PRODUCE_DATABASE = P;
   window.getProduceInfo = function (className) {
-    const key = normalize(className);
+    const key = normalize(className).replace(/^(edible|inedible)\s+/,"");
     const direct = aliases[key] || key.replace(/\s+/g,"-");
     return P.find(item => item.k === direct) || P.find(item => normalize(item.n) === key) || null;
   };

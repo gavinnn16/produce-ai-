@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0e1110">
-<title>PRODUCE AI</title>
+<title>PRODUCE AI — Fruit Intelligence</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="produce-ai-icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="produce-ai-192.png">
@@ -106,6 +106,63 @@ nav{position:static;flex-direction:column;border:0;background:none;width:100%;pa
 @media(max-width:420px){.browse-tools{grid-template-columns:1fr}.info-grid{grid-template-columns:1fr}.timeline{grid-template-columns:repeat(2,minmax(0,1fr))}.profile-hero{align-items:flex-start}.produce-mark{width:60px;height:60px;flex-basis:60px;font-size:34px}}
 @media print{header,nav,.profile-tabs,.row,.browse-tools,.card-actions,.safety-note{display:none!important}main{padding:0!important}.profile-hero,.info-card{break-inside:avoid;background:#fff!important;color:#111!important;border:1px solid #ccc!important}.info-card h3,.mu{color:#444!important}body{background:#fff!important;color:#111!important}}
 
+
+/* ---------- PRODUCE AI 2.0 visual system ---------- */
+:root{--bg:#080d0b;--card:#101916;--bd:#1d3028;--tx:#edf7f1;--mu:#91a79a;--ac:#55e39a;--wa:#f4c56a;--er:#ff7777;--shadow:0 18px 50px #0005}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(ellipse at 78% -12%,#174b3428,transparent 38%),var(--bg);letter-spacing:-.01em}
+header{background:#080d0beF;backdrop-filter:blur(18px);border-color:#1b2a23;box-shadow:0 8px 28px #0002}
+.logo{font-size:14px;letter-spacing:.16em}.logo svg{width:38px;height:38px;border-radius:12px;background:linear-gradient(145deg,#55e39a35,#55e39a0c);padding:7px}
+nav a{transition:background .2s,color .2s}nav a.on{background:#55e39a15;color:var(--ac)}
+main{padding-top:92px}
+h1{font-size:clamp(30px,4vw,44px);line-height:1.08;letter-spacing:-.045em;font-weight:760}
+h2{letter-spacing:-.03em}
+h3{font-size:11px;letter-spacing:.13em}
+.card,.info-card,.produce-card{background:linear-gradient(150deg,#14211b,#0f1713 70%);border:1px solid #22372c;border-radius:20px;box-shadow:0 8px 30px #0002}
+.card{padding:22px}.info-card{padding:20px}.produce-card{padding:18px;transition:transform .2s,border-color .2s,box-shadow .2s}
+.produce-card:hover{transform:translateY(-3px);border-color:#55e39a80;box-shadow:var(--shadow)}
+.hero{padding:30px;border:1px solid #254434;border-radius:24px;background:radial-gradient(circle at 85% 25%,#55e39a24,transparent 34%),linear-gradient(125deg,#14271d,#0d1712);margin-bottom:20px;min-height:190px}
+.hero .eyebrow{margin-bottom:10px}.hero p{max-width:560px;font-size:15px;line-height:1.7}
+.btn,.ghost{border-radius:12px;padding:12px 18px;font-size:14px;transition:transform .15s,filter .15s,border-color .15s}
+.btn{background:linear-gradient(135deg,#71f0ae,#37cb81);color:#052414;box-shadow:0 8px 24px #42d98a25;font-weight:750}
+.btn:hover,.ghost:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.ghost{background:#ffffff06;border-color:#30483a}
+input,select{background:#0c1510;border-color:#2a4033;border-radius:12px}
+.grid{gap:14px}.grid .card{min-height:110px}.kv{font-size:25px;letter-spacing:-.04em}
+.kp .mu{font-size:11px;text-transform:uppercase;letter-spacing:.12em}
+.stage{min-height:330px;border:1px dashed #3b6149;border-radius:18px;background:radial-gradient(circle at 50% 35%,#244c352b,transparent 55%),#0b120e}
+.stage video,.stage img{border-radius:16px}
+.rh{padding:12px 0 18px}.rim{width:112px;height:112px;border-radius:18px;border:1px solid #30483a}
+.big{font-size:30px;letter-spacing:-.04em}.pc{font-size:38px;line-height:1.1;color:var(--ac);letter-spacing:-.05em}
+.tag{padding:5px 11px;font-weight:650;background:#55e39a12}
+.callout{border-radius:14px;padding:15px;background:#55e39a0d}
+.warning{background:#f4c56a0d}
+.profile-hero{background:radial-gradient(circle at 90% 10%,#55e39a20,transparent 34%),#101916;border-radius:22px;padding:24px}
+.profile-tabs{padding:8px 0 14px;backdrop-filter:blur(12px)}
+.profile-tabs button{padding:10px 15px}
+.produce-mark{background:linear-gradient(145deg,#55e39a25,#55e39a09);border:1px solid #55e39a25}
+.produce-card .produce-mark{margin-bottom:14px}
+.info-grid{gap:14px}
+.browse-tools input{width:100%}
+.compare-bar{background:#101916;border-color:#22372c}
+.em{padding:34px 12px}.em b{font-size:17px}
+#tt{background:#eaf8ef;color:#102018;box-shadow:var(--shadow)}
+@media(min-width:900px){
+ header{width:248px;padding:28px 18px}
+ nav{gap:5px;margin-top:12px}
+ nav a{padding:13px 14px;border-radius:12px;font-weight:560}
+ .pill{margin-top:auto}
+ main{padding:44px 46px 44px 294px}
+ #app{max-width:1320px}
+}
+@media(max-width:699px){
+ main{padding-left:14px;padding-right:14px}
+ .hero{padding:22px;min-height:0}
+ .hero .row{width:100%}.hero .row>*{flex:1;text-align:center}
+ .grid{gap:9px}.grid .card{padding:14px;min-height:94px}
+ .kv{font-size:20px}
+ .stage{min-height:240px}
+}
+
 </style>
 </head>
 <body>
@@ -124,8 +181,8 @@ nav{position:static;flex-direction:column;border:0;background:none;width:100%;pa
 <script>
 /* ================= CONFIGURATION: paste your Teachable Machine model URL here ================= */
 const CFG = {
-  MODEL_URL: "PASTE_MY_TEACHABLE_MACHINE_MODEL_URL_HERE", // e.g. https://teachablemachine.withgoogle.com/models/AbCdEf123/
-  VERSION: "1.0.0",
+  MODEL_URL: "https://teachablemachine.withgoogle.com/models/9e_j2f3fa/", // e.g. https://teachablemachine.withgoogle.com/models/AbCdEf123/
+  VERSION: "2.0.0",
   LOW_CONFIDENCE: 0.6
 };
 /* ============================================================================================== */
@@ -135,7 +192,7 @@ const P = window.PRODUCE_DATABASE;
 
 /* ---------- helpers ---------- */
 const $=(s,e=document)=>e.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const pct=p=>(p*100).toFixed(1)+"%",fmtD=t=>new Date(t).toLocaleString(),info=n=>window.getProduceInfo(n);
+const pct=p=>(p*100).toFixed(1)+"%",fmtD=t=>new Date(t).toLocaleString(),info=n=>window.getProduceInfo(String(n).replace(/^(edible|inedible)\s+/i,""));
 const count=l=>l.reduce((o,s)=>(o[s.name]=(o[s.name]||0)+1,o),{});
 const empty=(t,d)=>`<div class="em"><b>${t}</b><p>${d}</p></div>`,card=(t,v)=>`<div class="card kp"><div class="mu">${t}</div><div class="kv">${v}</div></div>`;
 const bars=(l,hl)=>l.map(([n,w,v],k)=>`<div class="br${hl&&!k?" top":""}"><span>${esc(n)}</span><div class="tr"><i style="width:${Math.max(0,Math.min(100,w))}%"></i></div><b>${v}</b></div>`).join("");
@@ -177,7 +234,7 @@ async function route(){
 /* ---------- Dashboard ---------- */
 async function dash(){
   scans=await getAll();const n=scans.length,top=Object.entries(count(scans)).sort((a,b)=>b[1]-a[1]),avg=n?scans.reduce((s,x)=>s+x.conf,0)/n:0,last=scans.slice().sort((a,b)=>b.ts-a.ts);
-  $("#app").innerHTML=`<div class="hero"><div><h1>Identify produce with your camera</h1><p class="mu">Image classification runs locally in your browser using your Teachable Machine model.</p></div><div class="row"><a class="btn" href="#scanner">Start scanning</a><a class="ghost" href="#browse">Explore produce</a></div></div>
+  $("#app").innerHTML=`<div class="hero"><div><h1>Identify fruit with your camera</h1><p class="mu">Image classification runs locally in your browser using your Teachable Machine model.</p></div><div class="row"><a class="btn" href="#scanner">Start scanning</a><a class="ghost" href="#browse">Explore fruits</a></div></div>
   <div class="grid">${card("Total scans",n)}${card("Unique items",top.length)}${card("Most detected",top[0]?esc(top[0][0]):"—")}${card("Average confidence",n?pct(avg):"—")}${card("Model status",'<span class="ms"></span>')}${card("Last scan",last[0]?esc(last[0].name)+"<br><small class=mu>"+fmtD(last[0].ts)+"</small>":"—")}</div>
   <div class="two"><section class="card"><h3>Recent scans</h3>${n?`<div class="thumbs">${last.slice(0,6).map(x=>`<button class="th" data-a="view" data-id="${x.id}"><img src="${x.img}" alt=""><b>${esc(x.name)}</b><small>${pct(x.conf)}</small></button>`).join("")}</div>`:empty("No scans yet","Scan produce and save the result to see it here.")}</section>
   <section class="card"><h3>Most identified produce</h3>${n?bars(top.slice(0,6).map(([a,b])=>[a,b/top[0][1]*100,b])):empty("Nothing to show yet","Saved scans appear here.")}</section></div>`
@@ -220,7 +277,12 @@ async function analyze(){
 }
 function showRes(){
   const r=cur,i=info(r.name),low=r.conf<CFG.LOW_CONFIDENCE,n=S.top==="all"?r.scores.length:+S.top;
-  $("#res").innerHTML=`<div class="card"><h3>Result</h3><div class="rh"><img class="rim" src="${r.img}" alt=""><div><div class="mu">Most likely</div><div class="big">${esc(r.name)}</div><div class="pc">${pct(r.conf)}</div><span class="tag ${low?"w":""}">${low?"Low confidence — result may be uncertain":"Score above "+CFG.LOW_CONFIDENCE*100+"% threshold"}</span></div></div>
+  const edible = /^edible\s/i.test(r.name);
+  const inedible = /^inedible\s/i.test(r.name);
+  const fruitName = r.name.replace(/^(edible|inedible)\s+/i,"");
+  const statusText = low ? "Uncertain result" : edible ? "Model classified as edible" : inedible ? "Model classified as inedible" : "Unrecognized class";
+  $("#res").innerHTML=`<div class="card"><h3>Analysis result</h3><div class="rh"><img class="rim" src="${r.img}" alt=""><div><div class="mu">Detected fruit</div><div class="big">${esc(fruitName)}</div><div class="pc">${pct(r.conf)}</div><span class="tag ${low||inedible?"w":""}">${statusText}</span></div></div>
+  <div class="callout warning"><b>Food-safety reminder:</b> This is only a visual AI prediction. It cannot confirm that food is safe to eat. When unsure, do not eat it.</div>
   <h3>Predictions</h3>${bars(r.scores.slice(0,n).map(s=>[s.n,s.p*100,pct(s.p)]),true)}
   <p class="mu" style="margin-top:12px"><small>Confidence is the model's classification score for each class, not a guarantee of accuracy; results can be wrong. The model classifies the whole image and does not locate or count individual objects.</small></p>
   <div class="row"><button class="btn" data-a="again">Scan again</button><button class="ghost" id="sv" data-a="save">Save result</button>${i?`<a class="btn" href="#item/${i.k}">Explore Produce</a>`:""}</div></div>`
@@ -228,7 +290,7 @@ function showRes(){
 
 /* ---------- Produce encyclopedia ---------- */
 const PRODUCE_TABS = ["Overview","Growing Guide","Nutrition","Food Safety","Storage","Preparation","Facts"];
-const produceEmoji = {"apple":"🍎","banana":"🍌","orange":"🍊","grape":"🍇","strawberry":"🍓","watermelon":"🍉","kiwi":"🥝","lettuce":"🥬","lemon":"🍋","tomato":"🍅","cucumber":"🥒","green-pepper":"🫑","carrot":"🥕","onion":"🧅"};
+const produceEmoji = {"apple":"🍎","banana":"🍌","orange":"🍊","grape":"🍇","strawberry":"🍓","guava":"🍈","pomegranate":"🍎"};
 const favsGet=()=>{try{return JSON.parse(localStorage.getItem("pa_favs")||"[]")}catch{return[]}};
 const favsSet=a=>localStorage.setItem("pa_favs",JSON.stringify(a));
 let compareSelection=[];
@@ -313,13 +375,13 @@ function renderProfileTab(i,tab){
 }
 function browse(){
   const favs=favsGet();
-  $("#app").innerHTML=`<div class="hero"><div><div class="eyebrow">Produce encyclopedia</div><h1>Explore Produce</h1><p class="mu">Browse growing, nutrition, safety, storage and preparation guides for all ${P.length} supported classes.</p></div><a class="btn" href="#scanner">Open scanner</a></div>
-    <div class="browse-tools"><input id="produce-q" placeholder="Search produce by name or scientific name…" aria-label="Search produce"><select id="produce-filter"><option value="all">All produce</option><option value="Fruit">Fruits</option><option value="Vegetable">Vegetables</option><option value="fav">Favourites</option></select></div>
+  $("#app").innerHTML=`<div class="hero"><div><div class="eyebrow">Produce encyclopedia</div><h1>Explore Produce</h1><p class="mu">Explore seven fruits with growing, nutrition, safety, storage and preparation guides.</p></div><a class="btn" href="#scanner">Open scanner</a></div>
+    <div class="browse-tools"><input id="produce-q" placeholder="Search produce by name or scientific name…" aria-label="Search produce"><select id="produce-filter"><option value="all">All fruits</option><option value="fav">Favourites</option></select></div>
     <div class="compare-bar"><span id="compare-count">${compareSelection.length} selected for comparison (up to 3)</span><button class="ghost" data-a="compare-go">Compare nutrition</button><button class="ghost" data-a="compare-clear">Clear selection</button></div>
     <div id="produce-results" class="produce-grid"></div>`;
   const draw=()=>{
     const q=($("#produce-q").value||"").toLowerCase().trim(),f=$("#produce-filter").value,fs=favsGet();
-    const list=P.filter(i=>(f==="all"||i.kind===f||(f==="fav"&&fs.includes(i.k)))&&(!q||(i.n+" "+i.scientific+" "+i.classification).toLowerCase().includes(q)));
+    const list=P.filter(i=>(f==="all"||(f==="fav"&&fs.includes(i.k)))&&(!q||(i.n+" "+i.scientific+" "+i.classification).toLowerCase().includes(q)));
     $("#produce-results").innerHTML=list.length?list.map(i=>`<article class="produce-card"><div class="produce-mark">${produceEmoji[i.k]||"🌱"}</div><h3>${esc(i.n)}</h3><p>${esc(i.kind)} · <i>${esc(i.scientific)}</i></p><p>${esc(i.description)}</p><div class="card-actions"><a class="btn" href="#item/${i.k}">Explore</a><button class="fav-btn" data-a="fav" data-k="${i.k}">${fs.includes(i.k)?"★":"☆"} Favourite</button><label class="mu"><input type="checkbox" data-compare="${i.k}" ${compareSelection.includes(i.k)?"checked":""}> Compare</label></div></article>`).join(""):empty("No produce found","Try another name or filter.");
     $("#compare-count").textContent=compareSelection.length+" selected for comparison (up to 3)";
   };
@@ -371,11 +433,9 @@ async function ana(){
   scans=await getAll();const n=scans.length;
   if(!n){$("#app").innerHTML=`<h1>Analytics</h1><div class="card">${empty("Not enough data yet","Save some scans from the Scanner and your analytics will appear here.")}</div>`;return}
   const ent=Object.entries(count(scans)).sort((a,b)=>b[1]-a[1]),avg=scans.reduce((s,x)=>s+x.conf,0)/n,last=scans.slice().sort((a,b)=>b.ts-a.ts)[0];
-  const fr=scans.filter(s=>(info(s.name)||{}).kind==="Fruit").length,ve=scans.filter(s=>(info(s.name)||{}).kind==="Vegetable").length,pf=fr/n*100,pv=ve/n*100;
   const bk=[["Below 50%",0,.5],["50–70%",.5,.7],["70–90%",.7,.9],["90–100%",.9,1.01]].map(([l,a,b])=>[l,scans.filter(s=>s.conf>=a&&s.conf<b).length]);
   $("#app").innerHTML=`<h1>Analytics</h1><div class="grid">${card("Total scans",n)}${card("Average confidence",pct(avg))}${card("Most detected",esc(ent[0][0])+" ("+ent[0][1]+")")}${card("Least detected",esc(ent[ent.length-1][0])+" ("+ent[ent.length-1][1]+")")}${card("Most recent",esc(last.name))}${card("Unique items",ent.length)}</div>
-  <div class="two"><section class="card"><h3>Fruit vs vegetable</h3><div class="row"><div class="dn" style="background:conic-gradient(var(--ac) 0 ${pf}%,#4a90e2 ${pf}% ${pf+pv}%,var(--bd) ${pf+pv}% 100%)"></div><div><p><span style="color:var(--ac)">●</span> Fruit: ${fr}</p><p><span style="color:#4a90e2">●</span> Vegetable: ${ve}</p></div></div></section>
-  <section class="card"><h3>Confidence distribution</h3>${bars(bk.map(([l,v])=>[l,v/n*100,v]))}</section>
+  <div class="two"><section class="card"><h3>Confidence distribution</h3>${bars(bk.map(([l,v])=>[l,v/n*100,v]))}</section>
   <section class="card"><h3>Daily activity (14 days)</h3>${act("d",14)}</section><section class="card"><h3>Weekly activity (8 weeks)</h3>${act("w",8)}</section>
   <section class="card"><h3>Monthly activity (6 months)</h3>${act("m",6)}</section><section class="card"><h3>Prediction distribution</h3>${bars(ent.map(([a,b])=>[a,b/ent[0][1]*100,b]),true)}</section></div>`
 }
@@ -395,14 +455,14 @@ function sets(){
   <div class="row"><label>Predictions shown</label><select id="s3"><option>3</option><option>5</option><option value="all">All</option></select></div>
   <div class="row"><label><input type="checkbox" id="s4"> Sound effect after analysis</label></div></section>
   <section class="card"><h3>Model</h3><p>Status: <span class="ms"></span></p><p class="mu"><small>Classes read from model metadata: ${labels.length?esc(labels.join(", ")):"not loaded"}</small></p>
-  <div class="row"><input id="mu" style="flex:1" placeholder="Model URL (optional override)" value="${esc(localStorage.getItem("murl")||"")}"><button class="ghost" data-a="mu">Save and reload</button></div><small class="mu">Version ${CFG.VERSION}</small></section>
+  <div class="row"><input id="mu" style="flex:1" placeholder="Model URL (optional override)" value="${esc(localStorage.getItem("murl")||CFG.MODEL_URL)}"><button class="ghost" data-a="mu">Save and reload</button></div><small class="mu">Version ${CFG.VERSION}</small></section>
   <section class="card"><h3>Data</h3><p class="mu">Scan history is stored locally on this device and browser.</p><div class="row"><button class="ghost" data-a="csv">Export CSV</button><button class="ghost" data-a="json">Export JSON</button><button class="ghost" data-a="clr">Clear scan history</button><button class="ghost" data-a="rst">Reset all local data</button></div></section>
   <section class="card"><h3>More</h3><a href="#about">About PRODUCE AI</a></section></div>`;
   [["s1","theme"],["s2","cam"],["s3","top"]].forEach(([id,k])=>{const e=$("#"+id);e.value=S[k];e.onchange=()=>{S[k]=e.value;if(k==="cam")facing=e.value;saveS()}});
   $("#s4").checked=S.sound;$("#s4").onchange=e=>{S.sound=e.target.checked;saveS()}
 }
 function about(){
-  $("#app").innerHTML=`<h1>About PRODUCE AI</h1><div class="two"><section class="card"><h3>What it does</h3><p>PRODUCE AI identifies fruits and vegetables from a photo or live camera frame using an image classification model trained with Google Teachable Machine.</p><p style="margin-top:8px">Image classification assigns one score to each known class for the whole image. It does not find or count several objects in one picture.</p></section>
+  $("#app").innerHTML=`<h1>About PRODUCE AI</h1><div class="two"><section class="card"><h3>What it does</h3><p>PRODUCE AI identifies fruit and estimates its visual edibility class from a photo or live camera frame using an image classification model trained with Google Teachable Machine.</p><p style="margin-top:8px">Image classification assigns one score to each known class for the whole image. It does not find or count several objects in one picture.</p></section>
   <section class="card"><h3>Supported classes</h3><p>${labels.length?esc(labels.join(", ")):"Loaded from the model's metadata once the model is ready."}</p></section>
   <section class="card"><h3>Confidence and limits</h3><p>The percentage is the model's score for that class, not a guarantee. Results can be wrong, especially with poor lighting, unusual angles, mixed items, or produce the model wasn't trained on.</p></section>
   <section class="card"><h3>Privacy</h3><p>Predictions run in your browser. Images are not uploaded to a server by this app. Saved scans live in your browser's IndexedDB on this device only, with no account and no sync. The model files themselves are downloaded from Teachable Machine's hosting.</p></section></div>`
