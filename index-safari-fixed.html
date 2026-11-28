@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0e1110">
+<title>PRODUCE AI — Fruit Intelligence</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="produce-ai-icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="produce-ai-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="PRODUCE AI">
+<style>
+:root{--bg:#0e1110;--card:#161a18;--bd:#262c29;--tx:#f1f4f2;--mu:#8d9892;--ac:#3ddc84;--wa:#e8b23a;--er:#e5655b}
+[data-theme=light]{--bg:#f4f6f5;--card:#fff;--bd:#dde3df;--tx:#161a18;--mu:#5d6862;--ac:#16a05a}
+*{box-sizing:border-box;margin:0}
+body{font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--tx);overflow-x:hidden}
+h1{font-size:24px;margin:4px 0 12px}h2{font-size:20px}h3{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--mu);margin:0 0 12px}
+a{color:var(--ac)}.mu{color:var(--mu)}small{font-size:12px}
+header{position:fixed;inset:0 0 auto 0;display:flex;align-items:center;justify-content:space-between;padding:calc(env(safe-area-inset-top) + 10px) 16px 10px;background:var(--bg);border-bottom:1px solid var(--bd);z-index:5}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;letter-spacing:.12em;color:var(--tx);text-decoration:none}
+.logo svg{color:var(--ac);background:#3ddc8420;border-radius:8px;padding:5px;width:30px;height:30px}
+nav{position:fixed;inset:auto 0 0 0;display:flex;background:var(--card);border-top:1px solid var(--bd);padding-bottom:env(safe-area-inset-bottom);z-index:5}
+nav a{flex:1;text-align:center;padding:13px 2px;font-size:12px;color:var(--mu);text-decoration:none}nav a.on{color:var(--ac);font-weight:600}nav .dk{display:none}
+.pill{font-size:12px;color:var(--mu);border:1px solid var(--bd);border-radius:99px;padding:3px 10px}
+.install-btn{display:none;border:1px solid var(--ac);color:var(--ac);background:transparent;border-radius:10px;padding:8px 12px;font:600 13px system-ui;cursor:pointer}
+.install-btn.visible{display:inline-block}
+@media(max-width:699px){header{gap:8px}.install-btn{font-size:12px;padding:7px 9px}}
+main{padding:calc(env(safe-area-inset-top) + 74px) 16px calc(env(safe-area-inset-bottom) + 84px)}#app{max-width:1100px;margin:auto}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:16px;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:16px 0}.grid .card{margin:0}.grid3,.two{display:grid;gap:12px}
+.kv{font-size:20px;font-weight:700;overflow-wrap:anywhere}.kp .mu{font-size:12px}
+.hero{display:flex;flex-direction:column;gap:12px;align-items:flex-start;margin-bottom:8px}
+.btn,.ghost{border-radius:10px;padding:12px 18px;font:600 15px system-ui;cursor:pointer;text-decoration:none;display:inline-block;min-height:44px}
+.btn{background:var(--ac);color:#06210f;border:0}.btn:disabled{opacity:.5}.ghost{background:none;border:1px solid var(--bd);color:var(--tx)}
+input,select{background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:11px;font:inherit;min-height:44px;max-width:100%}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0;align-items:center}
+.stage{aspect-ratio:4/3;background:#0006;border-radius:14px;overflow:hidden;display:grid;place-items:center;text-align:center;color:var(--mu);border:1px dashed var(--bd)}
+.stage video,.stage img{width:100%;height:100%;object-fit:contain;background:#000}
+.br{display:grid;grid-template-columns:minmax(70px,110px) 1fr 56px;gap:8px;align-items:center;margin:6px 0;font-size:14px}
+.tr{height:8px;background:var(--bd);border-radius:4px;overflow:hidden}.tr i{display:block;height:100%;background:var(--mu);border-radius:4px}
+.br.top .tr i{background:var(--ac)}.br b{text-align:right;font-weight:600}
+.rh{display:flex;gap:14px;align-items:center;margin-bottom:12px}.rim{width:96px;height:96px;object-fit:cover;border-radius:12px}
+.big{font-size:26px;font-weight:700}.pc{font-size:34px;font-weight:700;color:var(--ac)}
+.tag{display:inline-block;font-size:12px;border:1px solid var(--ac);color:var(--ac);border-radius:99px;padding:2px 10px}.tag.w{border-color:var(--wa);color:var(--wa)}
+.thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.th{background:none;border:1px solid var(--bd);border-radius:10px;padding:6px;color:var(--tx);font:inherit;cursor:pointer;text-align:left}.th img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px}.th small{display:block;color:var(--mu)}
+.rw{display:grid;grid-template-columns:48px 1fr auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--bd)}.rw img{width:48px;height:48px;object-fit:cover;border-radius:8px}.rw .row{grid-column:1/-1;margin:0}
+.em{text-align:center;padding:24px 8px;color:var(--mu)}.em b{color:var(--tx)}
+.cols{display:flex;gap:4px;align-items:flex-end;height:130px}.col{flex:1;display:flex;flex-direction:column;align-items:center;height:100%;font-size:11px;color:var(--mu)}.bw{flex:1;width:100%;display:flex;align-items:flex-end;justify-content:center}.bw i{width:70%;background:var(--ac);border-radius:4px 4px 0 0}
+.dn{width:130px;height:130px;border-radius:50%;-webkit-mask:radial-gradient(circle 42px,#0000 98%,#000);mask:radial-gradient(circle 42px,#0000 98%,#000)}
+table{border-collapse:collapse;width:100%}td{padding:5px 0;border-bottom:1px solid var(--bd)}td+td{text-align:right}
+.md{position:fixed;inset:0;background:#000a;display:grid;place-items:center;z-index:9;padding:12px}.mc{background:var(--card);border-radius:16px;padding:16px;max-width:480px;width:100%;max-height:90vh;overflow:auto}.mc img{width:100%;max-height:260px;object-fit:contain;border-radius:10px;background:#000}
+#tt{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom) + 90px);background:var(--tx);color:var(--bg);padding:8px 14px;border-radius:99px;font-size:14px;z-index:10;display:none}
+@media(min-width:700px){.grid{grid-template-columns:repeat(3,1fr)}.grid3{grid-template-columns:repeat(2,1fr)}.hero{flex-direction:row;align-items:center;justify-content:space-between}}
+@media(min-width:900px){
+header{inset:0 auto 0 0;width:220px;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:24px;padding:24px 16px;border:0;border-right:1px solid var(--bd)}
+nav{position:static;flex-direction:column;border:0;background:none;width:100%;padding:0}nav a{text-align:left;padding:10px 12px;font-size:14px;border-radius:10px}nav a.on{background:var(--card)}nav .dk{display:block}
+.pill{margin-top:auto}main{padding:40px 40px 40px 260px}.two{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:repeat(3,1fr)}}
+
+/* ---------- Produce encyclopedia ---------- */
+.eyebrow{color:var(--ac);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.profile-hero{display:flex;gap:16px;align-items:center;padding:20px;border:1px solid var(--bd);border-radius:18px;background:linear-gradient(120deg,#3ddc8418,transparent 68%),var(--card);margin:14px 0}
+.produce-mark{width:76px;height:76px;flex:0 0 76px;border-radius:22px;display:grid;place-items:center;background:#3ddc841c;font-size:42px}
+.profile-hero h1{margin:2px 0 4px;font-size:clamp(24px,4vw,34px)}
+.profile-tabs{display:flex;gap:7px;overflow:auto;padding:4px 0 12px;position:sticky;top:60px;background:var(--bg);z-index:3}
+.profile-tabs button{white-space:nowrap;border:1px solid var(--bd);border-radius:999px;padding:9px 13px;background:var(--card);color:var(--mu);font:600 13px system-ui;cursor:pointer}
+.profile-tabs button.active{background:#3ddc8420;border-color:var(--ac);color:var(--ac)}
+.info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:14px 0}
+.info-card{background:var(--card);border:1px solid var(--bd);border-radius:15px;padding:16px;min-width:0}
+.info-card h3{margin-bottom:9px}
+.info-card p,.info-card li{overflow-wrap:anywhere}
+.info-card ul{padding-left:18px;margin:8px 0}
+.info-card li{margin:5px 0}
+.stat-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:14px 0}
+.stat-tile{padding:12px;border:1px solid var(--bd);border-radius:12px;background:var(--card)}
+.stat-tile b{display:block;font-size:20px;color:var(--ac)}
+.stat-tile span{font-size:11px;color:var(--mu)}
+.callout{border-left:3px solid var(--ac);background:#3ddc8410;padding:12px 14px;border-radius:0 10px 10px 0;margin:12px 0}
+.warning{border-left-color:var(--wa);background:#e8b23a12}
+.nutri-bar{display:grid;grid-template-columns:95px 1fr 52px;align-items:center;gap:10px;margin:10px 0;font-size:13px}
+.nutri-track{height:9px;background:var(--bd);border-radius:9px;overflow:hidden}
+.nutri-track i{height:100%;display:block;background:var(--ac);border-radius:9px}
+.timeline{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:12px 0}
+.timeline div{padding:11px;border:1px solid var(--bd);border-radius:12px;background:var(--card)}
+.timeline b{display:block;color:var(--ac);font-size:12px;margin-bottom:5px}
+.source-list{padding-left:18px}.source-list li{margin:7px 0;overflow-wrap:anywhere}
+.source-list a{font-size:13px}
+.browse-tools{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:9px;margin:14px 0}
+.produce-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.produce-card{position:relative;border:1px solid var(--bd);background:var(--card);border-radius:16px;padding:14px;min-width:0}
+.produce-card .produce-mark{width:54px;height:54px;border-radius:15px;font-size:30px;margin-bottom:10px}
+.produce-card h3{color:var(--tx);font-size:16px;text-transform:none;letter-spacing:0;margin:0 0 3px}
+.produce-card p{font-size:12px;color:var(--mu);margin:4px 0}
+.produce-card .card-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.produce-card .card-actions a,.produce-card .card-actions button{font-size:12px;padding:8px 10px;min-height:36px}
+.fav-btn{border:1px solid var(--bd);border-radius:9px;background:none;color:var(--tx);cursor:pointer}
+.compare-bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:12px 0;padding:12px;background:var(--card);border:1px solid var(--bd);border-radius:12px}
+.compare-table{overflow-x:auto}
+.compare-table table{min-width:560px}
+.compare-table th,.compare-table td{padding:9px;border-bottom:1px solid var(--bd);text-align:left;vertical-align:top}
+.compare-table th{color:var(--mu);font-size:12px}
+.safety-note{font-size:12px;color:var(--mu);margin-top:12px}
+@media(min-width:700px){.produce-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.info-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:900px){.profile-tabs{top:0}.produce-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:420px){.browse-tools{grid-template-columns:1fr}.info-grid{grid-template-columns:1fr}.timeline{grid-template-columns:repeat(2,minmax(0,1fr))}.profile-hero{align-items:flex-start}.produce-mark{width:60px;height:60px;flex-basis:60px;font-size:34px}}
+@media print{header,nav,.profile-tabs,.row,.browse-tools,.card-actions,.safety-note{display:none!important}main{padding:0!important}.profile-hero,.info-card{break-inside:avoid;background:#fff!important;color:#111!important;border:1px solid #ccc!important}.info-card h3,.mu{color:#444!important}body{background:#fff!important;color:#111!important}}
+
+
+/* ---------- PRODUCE AI 2.0 visual system ---------- */
+:root{--bg:#080d0b;--card:#101916;--bd:#1d3028;--tx:#edf7f1;--mu:#91a79a;--ac:#55e39a;--wa:#f4c56a;--er:#ff7777;--shadow:0 18px 50px #0005}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(ellipse at 78% -12%,#174b3428,transparent 38%),var(--bg);letter-spacing:-.01em}
+header{background:#080d0beF;backdrop-filter:blur(18px);border-color:#1b2a23;box-shadow:0 8px 28px #0002}
+.logo{font-size:14px;letter-spacing:.16em}.logo svg{width:38px;height:38px;border-radius:12px;background:linear-gradient(145deg,#55e39a35,#55e39a0c);padding:7px}
+nav a{transition:background .2s,color .2s}nav a.on{background:#55e39a15;color:var(--ac)}
+main{padding-top:92px}
+h1{font-size:clamp(30px,4vw,44px);line-height:1.08;letter-spacing:-.045em;font-weight:760}
+h2{letter-spacing:-.03em}
+h3{font-size:11px;letter-spacing:.13em}
+.card,.info-card,.produce-card{background:linear-gradient(150deg,#14211b,#0f1713 70%);border:1px solid #22372c;border-radius:20px;box-shadow:0 8px 30px #0002}
+.card{padding:22px}.info-card{padding:20px}.produce-card{padding:18px;transition:transform .2s,border-color .2s,box-shadow .2s}
+.produce-card:hover{transform:translateY(-3px);border-color:#55e39a80;box-shadow:var(--shadow)}
+.hero{padding:30px;border:1px solid #254434;border-radius:24px;background:radial-gradient(circle at 85% 25%,#55e39a24,transparent 34%),linear-gradient(125deg,#14271d,#0d1712);margin-bottom:20px;min-height:190px}
+.hero .eyebrow{margin-bottom:10px}.hero p{max-width:560px;font-size:15px;line-height:1.7}
+.btn,.ghost{border-radius:12px;padding:12px 18px;font-size:14px;transition:transform .15s,filter .15s,border-color .15s}
+.btn{background:linear-gradient(135deg,#71f0ae,#37cb81);color:#052414;box-shadow:0 8px 24px #42d98a25;font-weight:750}
+.btn:hover,.ghost:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.ghost{background:#ffffff06;border-color:#30483a}
+input,select{background:#0c1510;border-color:#2a4033;border-radius:12px}
+.grid{gap:14px}.grid .card{min-height:110px}.kv{font-size:25px;letter-spacing:-.04em}
+.kp .mu{font-size:11px;text-transform:uppercase;letter-spacing:.12em}
+.stage{min-height:330px;border:1px dashed #3b6149;border-radius:18px;background:radial-gradient(circle at 50% 35%,#244c352b,transparent 55%),#0b120e}
+.stage video,.stage img{border-radius:16px}
+.rh{padding:12px 0 18px}.rim{width:112px;height:112px;border-radius:18px;border:1px solid #30483a}
+.big{font-size:30px;letter-spacing:-.04em}.pc{font-size:38px;line-height:1.1;color:var(--ac);letter-spacing:-.05em}
+.tag{padding:5px 11px;font-weight:650;background:#55e39a12}
+.callout{border-radius:14px;padding:15px;background:#55e39a0d}
+.warning{background:#f4c56a0d}
+.profile-hero{background:radial-gradient(circle at 90% 10%,#55e39a20,transparent 34%),#101916;border-radius:22px;padding:24px}
+.profile-tabs{padding:8px 0 14px;backdrop-filter:blur(12px)}
+.profile-tabs button{padding:10px 15px}
+.produce-mark{background:linear-gradient(145deg,#55e39a25,#55e39a09);border:1px solid #55e39a25}
+.produce-card .produce-mark{margin-bottom:14px}
+.info-grid{gap:14px}
+.browse-tools input{width:100%}
+.compare-bar{background:#101916;border-color:#22372c}
+.em{padding:34px 12px}.em b{font-size:17px}
+#tt{background:#eaf8ef;color:#102018;box-shadow:var(--shadow)}
+@media(min-width:900px){
+ header{width:248px;padding:28px 18px}
+ nav{gap:5px;margin-top:12px}
+ nav a{padding:13px 14px;border-radius:12px;font-weight:560}
+ .pill{margin-top:auto}
+ main{padding:44px 46px 44px 294px}
+ #app{max-width:1320px}
+}
+@media(max-width:699px){
+ main{padding-left:14px;padding-right:14px}
+ .hero{padding:22px;min-height:0}
+ .hero .row{width:100%}.hero .row>*{flex:1;text-align:center}
+ .grid{gap:9px}.grid .card{padding:14px;min-height:94px}
+ .kv{font-size:20px}
+ .stage{min-height:240px}
+}
+
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="#dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19C5 10 10 5 20 5c0 9-5 15-13 15"/><path d="M5 19l8-8"/></svg>PRODUCE AI</a>
+  <nav>
+    <a href="#dashboard">Dashboard</a><a href="#scanner">Scanner</a><a href="#analytics">Analytics</a><a href="#history">History</a><a href="#browse">Explore</a><a class="dk" href="#about">About</a><a href="#settings">Settings</a>
+  </nav>
+  <div style="display:flex;gap:8px;align-items:center"><button class="install-btn" id="installApp">Install app</button><div class="pill">Model: <span class="ms"></span></div></div>
+</header>
+<main><div id="app"></div></main><div id="tt"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.5/dist/teachablemachine-image.min.js"></script>
+<script src="produce-database.js"></script>
+<script>
+/* ================= CONFIGURATION: paste your Teachable Machine model URL here ================= */
+const CFG = {
+  MODEL_URL: "https://teachablemachine.withgoogle.com/models/9e_j2f3fa/", // e.g. https://teachablemachine.withgoogle.com/models/AbCdEf123/
+  VERSION: "2.0.0",
+  LOW_CONFIDENCE: 0.6
+};
+/* ============================================================================================== */
+
+/* Produce profiles live in produce-database.js, separate from model inference. */
+const P = window.PRODUCE_DATABASE;
+
+/* ---------- helpers ---------- */
+const $=(s,e=document)=>e.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pct=p=>(p*100).toFixed(1)+"%",fmtD=t=>new Date(t).toLocaleString(),info=n=>window.getProduceInfo(String(n).replace(/^(edible|inedible)\s+/i,""));
+const count=l=>l.reduce((o,s)=>(o[s.name]=(o[s.name]||0)+1,o),{});
+const empty=(t,d)=>`<div class="em"><b>${t}</b><p>${d}</p></div>`,card=(t,v)=>`<div class="card kp"><div class="mu">${t}</div><div class="kv">${v}</div></div>`;
+const bars=(l,hl)=>l.map(([n,w,v],k)=>`<div class="br${hl&&!k?" top":""}"><span>${esc(n)}</span><div class="tr"><i style="width:${Math.max(0,Math.min(100,w))}%"></i></div><b>${v}</b></div>`).join("");
+let tto;const toast=m=>{const t=$("#tt");t.textContent=m;t.style.display="block";clearTimeout(tto);tto=setTimeout(()=>t.style.display="none",2600)};
+const S=Object.assign({theme:"dark",sound:false,cam:"environment",top:"5"},JSON.parse(localStorage.getItem("pa")||"{}"));
+const saveS=()=>{localStorage.setItem("pa",JSON.stringify(S));document.documentElement.dataset.theme=S.theme};
+const beep=()=>{try{const c=new AudioContext(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);g.gain.value=.05;o.frequency.value=660;o.start();o.stop(c.currentTime+.12)}catch{}};
+
+/* ---------- IndexedDB ---------- */
+const idb=new Promise((res,rej)=>{const r=indexedDB.open("produceai",1);r.onupgradeneeded=()=>r.result.createObjectStore("scans",{keyPath:"id"});r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});
+const tx=async(m,f)=>{const d=await idb;return new Promise((res,rej)=>{const t=d.transaction("scans",m),q=f(t.objectStore("scans"));t.oncomplete=()=>res(q&&q.result);t.onerror=()=>rej(t.error)})};
+const getAll=()=>tx("readonly",s=>s.getAll()),put=o=>tx("readwrite",s=>s.put(o)),del=id=>tx("readwrite",s=>s.delete(id)),clr=()=>tx("readwrite",s=>s.clear());
+let scans=[];
+
+/* ---------- model (loaded once) ---------- */
+let model,labels=[],mstate="idle",merr="";
+const modelUrl=()=>{const u=(localStorage.getItem("murl")||CFG.MODEL_URL||"").trim();if(!u||u.includes("PASTE_MY"))return"";return u.endsWith("/")?u:u+"/"};
+const stat=()=>({idle:"Not loaded",nourl:"No model URL set",loading:"Loading…",ready:`Ready · ${labels.length} classes`,error:"Failed to load"}[mstate]);
+const statusUI=()=>{document.querySelectorAll(".ms").forEach(e=>e.textContent=stat())};
+async function loadModel(){
+  const u=modelUrl();if(!u){mstate="nourl";return statusUI()}
+  mstate="loading";statusUI();
+  try{
+    // Safari compatibility fallback: avoid WebGL shader compilation.
+    if(window.tf && tf.setBackend){await tf.setBackend("cpu");await tf.ready();}
+    model=await tmImage.load(u+"model.json",u+"metadata.json");
+    labels=model.getClassLabels();mstate="ready";
+  }
+  catch(e){mstate="error";merr=e.message||String(e)}
+  statusUI();if(location.hash==="#scanner")scanNote()
+}
+const scanNote=()=>{const m=$("#msg");if(!m)return;m.textContent=mstate==="nourl"?"Add your Teachable Machine model URL in index.html (CFG.MODEL_URL) or in Settings.":mstate==="error"?"Model failed to load: "+merr+". Check the URL in Settings.":mstate==="loading"?"Model is loading…":""};
+
+/* ---------- router ---------- */
+let stream=null,facing=S.cam,pend=null,cur=null;
+const stopCam=()=>{if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}};
+async function route(){
+  stopCam();const h=location.hash.slice(1).split("/");
+  document.querySelectorAll("nav a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+(h[0]||"dashboard")));
+  const R={"":dash,dashboard:dash,scanner:scan,analytics:ana,history:hist,about:about,settings:sets,browse:browse,compare:comparePage,item:()=>item(h[1])};
+  await(R[h[0]]||dash)();statusUI();scrollTo(0,0)
+}
+
+/* ---------- Dashboard ---------- */
+async function dash(){
+  scans=await getAll();const n=scans.length,top=Object.entries(count(scans)).sort((a,b)=>b[1]-a[1]),avg=n?scans.reduce((s,x)=>s+x.conf,0)/n:0,last=scans.slice().sort((a,b)=>b.ts-a.ts);
+  $("#app").innerHTML=`<div class="hero"><div><h1>Identify fruit with your camera</h1><p class="mu">Image classification runs locally in your browser using your Teachable Machine model.</p></div><div class="row"><a class="btn" href="#scanner">Start scanning</a><a class="ghost" href="#browse">Explore fruits</a></div></div>
+  <div class="grid">${card("Total scans",n)}${card("Unique items",top.length)}${card("Most detected",top[0]?esc(top[0][0]):"—")}${card("Average confidence",n?pct(avg):"—")}${card("Model status",'<span class="ms"></span>')}${card("Last scan",last[0]?esc(last[0].name)+"<br><small class=mu>"+fmtD(last[0].ts)+"</small>":"—")}</div>
+  <div class="two"><section class="card"><h3>Recent scans</h3>${n?`<div class="thumbs">${last.slice(0,6).map(x=>`<button class="th" data-a="view" data-id="${x.id}"><img src="${x.img}" alt=""><b>${esc(x.name)}</b><small>${pct(x.conf)}</small></button>`).join("")}</div>`:empty("No scans yet","Scan produce and save the result to see it here.")}</section>
+  <section class="card"><h3>Most identified produce</h3>${n?bars(top.slice(0,6).map(([a,b])=>[a,b/top[0][1]*100,b])):empty("Nothing to show yet","Saved scans appear here.")}</section></div>`
+}
+
+/* ---------- Scanner ---------- */
+const msg=t=>{const m=$("#msg");if(m)m.textContent=t};
+async function scan(){
+  $("#app").innerHTML=`<h1>Scanner</h1><div class="two"><section class="card"><div class="stage" id="st"></div><div class="row" id="ctl"></div><p id="msg" class="mu"></p></section><section id="res"></section></div>`;
+  const st=$("#st");st.ondragover=e=>e.preventDefault();st.ondrop=e=>{e.preventDefault();file(e.dataTransfer.files[0])};
+  pend=null;stage("idle");scanNote()
+}
+function stage(s){
+  const st=$("#st"),c=$("#ctl");if(!st)return;if(s!=="live")stopCam();
+  if(s==="live"){st.innerHTML='<video id="v" playsinline muted autoplay></video>';c.innerHTML='<button class="btn" data-a="cap">Capture</button><button class="ghost" data-a="flip">Switch camera</button><button class="ghost" data-a="stop">Close</button>'}
+  else if(s==="prev"){st.innerHTML=`<img id="pv" src="${pend}" alt="Selected image">`;c.innerHTML='<button class="btn" id="anb" data-a="an">Analyze image</button><button class="ghost" data-a="retake">Retake</button>'}
+  else{st.innerHTML="<div><p>Drag and drop a JPG, PNG or WEBP here</p></div>";c.innerHTML='<button class="btn" data-a="cam">Open camera</button><button class="ghost" data-a="up">Upload image</button><input id="fi" type="file" accept="image/jpeg,image/png,image/webp" hidden>'}
+}
+async function startCam(){
+  stopCam();msg("");
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){stage("idle");return msg("Camera needs HTTPS or localhost. Use the deployed HTTPS link on your phone.")}
+  try{stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:facing},audio:false});const v=$("#v");v.srcObject=stream;await v.play()}
+  catch(e){stage("idle");msg(e.name==="NotAllowedError"?"Camera access was blocked. Chrome/Edge: click the camera or lock icon in the address bar and allow the camera. iPhone: Settings → Safari → Camera → Allow. Then reload.":e.name==="NotFoundError"?"No camera found on this device. You can upload an image instead.":"Could not start the camera: "+e.message)}
+}
+function file(f){
+  if(!f)return;if(!/^image\/(jpeg|png|webp)$/.test(f.type))return msg("Unsupported file type. Use JPG, PNG or WEBP.");
+  const r=new FileReader();r.onload=()=>{pend=r.result;stopCam();stage("prev");msg("")};r.onerror=()=>msg("Could not read that file.");r.readAsDataURL(f)
+}
+function thumb(im){const c=document.createElement("canvas"),k=Math.min(1,480/Math.max(im.naturalWidth,im.naturalHeight));c.width=im.naturalWidth*k;c.height=im.naturalHeight*k;c.getContext("2d").drawImage(im,0,0,c.width,c.height);return c.toDataURL("image/jpeg",.7)}
+async function analyze(){
+  if(mstate!=="ready")return msg(mstate==="loading"?"The model is still loading.":"The model isn't ready. Check the model URL in Settings.");
+  const b=$("#anb"),im=$("#pv");
+  if(!b||!im)return;
+  b.disabled=true;b.textContent="Analyzing…";msg("Preparing image…");
+  try{
+    if(im.decode)await im.decode();
+    if(!im.naturalWidth||!im.naturalHeight)throw new Error("The selected image could not be decoded.");
+
+    // Keep mobile inference lightweight: use a small canvas instead of the original full-resolution photo.
+    const size=224,canvas=document.createElement("canvas");
+    canvas.width=size;canvas.height=size;
+    const ctx=canvas.getContext("2d");
+    if(!ctx)throw new Error("Could not prepare the image on this device.");
+    const scale=Math.max(size/im.naturalWidth,size/im.naturalHeight);
+    const sw=size/scale,sh=size/scale;
+    const sx=(im.naturalWidth-sw)/2,sy=(im.naturalHeight-sh)/2;
+    ctx.drawImage(im,sx,sy,sw,sh,0,0,size,size);
+
+    await new Promise(resolve=>setTimeout(resolve,30));
+    msg("Running prediction…");
+    const p=await model.predict(canvas);
+    const sc=p.map(x=>({n:x.className,p:x.probability})).sort((a,b)=>b.p-a.p);
+    if(!sc.length)throw new Error("The model returned no predictions.");
+    cur={id:(crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random().toString(36).slice(2)),ts:Date.now(),name:sc[0].n,conf:sc[0].p,scores:sc,img:thumb(im)};
+    showRes();if(S.sound)beep();
+    msg("");
+  }catch(e){
+    msg("Analysis failed: "+(e&&e.message?e.message:String(e)));
+    console.error("PRODUCE AI analysis error:",e);
+  }finally{
+    b.disabled=false;b.textContent="Analyze image";
+  }
+}
+function showRes(){
+  const r=cur,i=info(r.name),low=r.conf<CFG.LOW_CONFIDENCE,n=S.top==="all"?r.scores.length:+S.top;
+  const edible = /^edible\s/i.test(r.name);
+  const inedible = /^inedible\s/i.test(r.name);
+  const fruitName = r.name.replace(/^(edible|inedible)\s+/i,"");
+  const statusText = low ? "Uncertain result" : edible ? "Model classified as edible" : inedible ? "Model classified as inedible" : "Unrecognized class";
+  $("#res").innerHTML=`<div class="card"><h3>Analysis result</h3><div class="rh"><img class="rim" src="${r.img}" alt=""><div><div class="mu">Detected fruit</div><div class="big">${esc(fruitName)}</div><div class="pc">${pct(r.conf)}</div><span class="tag ${low||inedible?"w":""}">${statusText}</span></div></div>
+  <div class="callout warning"><b>Food-safety reminder:</b> This is only a visual AI prediction. It cannot confirm that food is safe to eat. When unsure, do not eat it.</div>
+  <h3>Predictions</h3>${bars(r.scores.slice(0,n).map(s=>[s.n,s.p*100,pct(s.p)]),true)}
+  <p class="mu" style="margin-top:12px"><small>Confidence is the model's classification score for each class, not a guarantee of accuracy; results can be wrong. The model classifies the whole image and does not locate or count individual objects.</small></p>
+  <div class="row"><button class="btn" data-a="again">Scan again</button><button class="ghost" id="sv" data-a="save">Save result</button>${i?`<a class="btn" href="#item/${i.k}">Explore Produce</a>`:""}</div></div>`
+}
+
+/* ---------- Produce encyclopedia ---------- */
+const PRODUCE_TABS = ["Overview","Growing Guide","Nutrition","Food Safety","Storage","Preparation","Facts"];
+const produceEmoji = {"apple":"🍎","banana":"🍌","orange":"🍊","grape":"🍇","strawberry":"🍓","guava":"🍈","pomegranate":"🍎"};
+const favsGet=()=>{try{return JSON.parse(localStorage.getItem("pa_favs")||"[]")}catch{return[]}};
+const favsSet=a=>localStorage.setItem("pa_favs",JSON.stringify(a));
+let compareSelection=[];
+const escList=a=>(a||[]).map(x=>`<li>${esc(x)}</li>`).join("");
+const infoCard=(title,body)=>`<section class="info-card"><h3>${title}</h3>${body}</section>`;
+const keyValue=(label,value)=>`<p><b>${label}:</b> ${esc(value)}</p>`;
+const sourceLinks=i=>`<section class="info-card"><h3>Sources and further reading</h3><ul class="source-list">${i.sources.map(s=>`<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.label)}</a></li>`).join("")}</ul><p class="safety-note">Nutrition values are approximate per 100 g edible raw portion and are rounded from USDA FoodData Central entries. Growing guidance is generalized from the linked extension resources; adapt to local conditions.</p></section>`;
+function item(k,tab="Overview"){
+  const i=P.find(x=>x.k===k);if(!i){location.hash="#browse";return}
+  const active=PRODUCE_TABS.includes(tab)?tab:"Overview";
+  const fav=favsGet().includes(i.k);
+  $("#app").innerHTML=`<a href="#browse" class="mu">← Explore all produce</a>
+    <div class="profile-hero"><div class="produce-mark">${produceEmoji[i.k]||"🌱"}</div><div><div class="eyebrow">${esc(i.kind)} profile</div><h1>${esc(i.n)}</h1><p class="mu"><i>${esc(i.scientific)}</i> · ${esc(i.classification)}</p></div></div>
+    <div class="row"><button class="ghost" data-a="fav" data-k="${i.k}">${fav?"★ Remove favourite":"☆ Add favourite"}</button><button class="ghost" data-a="print">Print profile</button><button class="ghost" data-a="download-profile" data-k="${i.k}">Download information</button></div>
+    <div class="profile-tabs" role="tablist">${PRODUCE_TABS.map(t=>`<button role="tab" aria-selected="${t===active}" class="${t===active?"active":""}" data-tab="${t}" data-k="${i.k}">${t}</button>`).join("")}</div>
+    <div id="profile-content">${renderProfileTab(i,active)}</div>`;
+}
+function renderProfileTab(i,tab){
+  const n=i.n, g=i.growing, nu=i.nutrition, st=i.storage, safe=i.safety, p=i.preparation, commonSafety=window.PRODUCE_SAFETY_GUIDE;
+  if(tab==="Overview")return `
+    <p>${esc(i.description)}</p>
+    <div class="stat-grid"><div class="stat-tile"><b>${nu.kcal}</b><span>kcal / 100 g</span></div><div class="stat-tile"><b>${nu.water} g</b><span>Water per 100 g</span></div><div class="stat-tile"><b>${nu.fibre} g</b><span>Fibre / 100 g</span></div></div>
+    <div class="info-grid">
+      ${infoCard("Botanical identity",keyValue("Common name",n)+keyValue("Scientific name",i.scientific)+keyValue("Classification",i.classification)+keyValue("Category",i.kind))}
+      ${infoCard("Origin and varieties",keyValue("Origin",i.origin)+keyValue("Common varieties",i.varieties))}
+      ${infoCard("Physical characteristics",`<p>${esc(i.physical)}</p>`)}
+      ${infoCard("Nutritional highlights",`<ul>${escList(i.health)}</ul><p class="mu"><small>See the Nutrition tab for approximate per-100 g values.</small></p>`)}
+      ${infoCard("At a glance",keyValue("Growing difficulty",g.difficulty)+keyValue("Typical season",g.season)+keyValue("Growing timeline",g.timeline))}
+      ${infoCard("Storage snapshot",keyValue("Refrigeration",st.refrigeration)+keyValue("Expected shelf life",st.shelf))}
+    </div>${sourceLinks(i)}`;
+  if(tab==="Growing Guide")return `
+    <div class="callout"><b>Growing note:</b> ${esc(g.climate)} Timings below are indicative, not guarantees; local climate, cultivar, soil and frost dates matter.</div>
+    <div class="timeline"><div><b>1 · Plan</b>${esc(g.difficulty)}<br><small class="mu">${esc(g.season)}</small></div><div><b>2 · Plant</b>${esc(g.planting)}</div><div><b>3 · Establish</b>${esc(g.germination)}</div><div><b>4 · Harvest</b>${esc(g.harvesting)}</div></div>
+    <div class="info-grid">
+      ${infoCard("Climate and temperature",`<p>${esc(g.climate)}</p>${keyValue("Temperature",g.temperature)}`)}
+      ${infoCard("Soil and sunlight",keyValue("Soil",g.soil)+keyValue("Sunlight",g.sunlight))}
+      ${infoCard("Water and care",keyValue("Water",g.water)+keyValue("Planting",g.planting))}
+      ${infoCard("Germination and difficulty",keyValue("Germination",g.germination)+keyValue("Difficulty",g.difficulty))}
+      ${infoCard("Growing timeline",`<p>${esc(g.timeline)}</p>${keyValue("Seasonal availability",g.season)}`)}
+      ${infoCard("Harvesting",`<p>${esc(g.harvesting)}</p>`)}
+      ${infoCard("Common diseases and problems",`<p>${esc(g.problems)}</p><p class="mu"><small>For diagnosis, consult a local extension office or plant diagnostic lab; symptoms overlap.</small></p>`)}
+    </div>${sourceLinks(i)}`;
+  if(tab==="Nutrition")return `
+    <div class="callout">Approximate nutrition per 100 g edible raw portion. Values are rounded and vary by cultivar, ripeness, growing conditions and edible portion. These are reference estimates, not a personalized dietary assessment.</div>
+    <div class="info-grid">
+      ${infoCard("Energy and macronutrients",`<div class="stat-grid"><div class="stat-tile"><b>${nu.kcal}</b><span>kcal</span></div><div class="stat-tile"><b>${nu.carbohydrate} g</b><span>Carbohydrate</span></div><div class="stat-tile"><b>${nu.protein} g</b><span>Protein</span></div></div>
+      ${[["Carbohydrate",nu.carbohydrate,30],["Protein",nu.protein,10],["Fat",nu.fat,10],["Fibre",nu.fibre,10]].map(([label,val,max])=>`<div class="nutri-bar"><span>${label}</span><div class="nutri-track"><i style="width:${Math.min(100,val/max*100)}%"></i></div><b>${val} g</b></div>`).join("")}
+      ${keyValue("Fat",nu.fat+" g")}${keyValue("Fibre",nu.fibre+" g")}${keyValue("Water",nu.water+" g")}`)}
+      ${infoCard("Vitamins",`<p>${esc(nu.vitamins)}</p>`)}
+      ${infoCard("Minerals",`<p>${esc(nu.minerals)}</p>`)}
+      ${infoCard("Nutritional context",`<p>${esc(nu.note)}</p><ul>${escList(i.health)}</ul>`)}
+    </div>${sourceLinks(i)}`;
+  if(tab==="Food Safety")return `
+    <div class="callout warning"><b>Important safety limitation:</b> ${esc(safe.warnings)} ${esc(commonSafety.imageLimit)}</div>
+    <div class="info-grid">
+      ${infoCard("Edible parts",`<p>${esc(safe.edible)}</p>`)}
+      ${infoCard("Parts and conditions to avoid",`<p>${esc(safe.avoid)}</p>`)}
+      ${infoCard("Washing instructions",`<p>${esc(safe.washing)}</p>`)}
+      ${infoCard("Preparation and cross-contamination",`<p>${esc(safe.prep)}</p><p>${esc(commonSafety.crossContamination)}</p>`)}
+      ${infoCard("Spoilage indicators",`<p>${esc(safe.spoilage)}</p>`)}
+      ${infoCard("Allergy considerations",`<p>${esc(safe.allergy)}</p><p class="mu"><small>For known food allergies, follow advice from your qualified healthcare professional.</small></p>`)}
+      ${infoCard("Temperature control",`<p>${esc(commonSafety.chill)}</p>`)}
+    </div>${sourceLinks(i)}`;
+  if(tab==="Storage")return `
+    <div class="info-grid">
+      ${infoCard("Refrigeration",`<p>${esc(st.refrigeration)}</p>`)}
+      ${infoCard("Room-temperature storage",`<p>${esc(st.room)}</p>`)}
+      ${infoCard("Freezing",`<p>${esc(st.freezing)}</p>`)}
+      ${infoCard("Expected shelf life",`<p>${esc(st.shelf)}</p><p class="mu"><small>Estimates assume sound produce and suitable handling; they are not guarantees of safety.</small></p>`)}
+      ${infoCard("Freshness tips",`<p>${esc(st.fresh)}</p>`)}
+      ${infoCard("Food safety reminder",`<p>${esc(commonSafety.chill)}</p><p>${esc(commonSafety.crossContamination)}</p>`)}
+    </div>${sourceLinks(i)}`;
+  if(tab==="Preparation")return `
+    <div class="info-grid">
+      ${infoCard("How to wash and prepare",`<p>${esc(p.wash)}</p>`)}
+      ${infoCard("Raw or cooked?",`<p>${esc(p.rawCooked)}</p>`)}
+      ${infoCard("Cooking methods",`<p>${esc(p.methods)}</p>`)}
+      ${infoCard("Recipe ideas",`<ul>${escList(p.ideas.split(", "))}</ul>`)}
+      ${infoCard("Safe handling",`<p>${esc(commonSafety.wash)}</p><p>${esc(commonSafety.crossContamination)}</p>`)}
+    </div>${sourceLinks(i)}`;
+  return `<div class="info-grid">${infoCard("Interesting facts",`<ul>${escList(i.facts)}</ul>`)}${infoCard("History and growing regions",`<p>${esc(i.origin)}</p><p>${esc(i.growing.season)}</p>`)}${infoCard("Environmental context",`<p>Production footprint depends on growing region, irrigation, energy used for protected cultivation, fertilizer management, transport distance, packaging and storage. Seasonal local production can reduce some transport and storage impacts, but no single origin or growing method is always lowest-impact.</p><p>${esc(i.growing.climate)}</p>`)}${infoCard("Further reading",`<p>Explore the cited government and university resources below for more detailed regional information.</p>`)}</div>${sourceLinks(i)}`;
+}
+function browse(){
+  const favs=favsGet();
+  $("#app").innerHTML=`<div class="hero"><div><div class="eyebrow">Produce encyclopedia</div><h1>Explore Produce</h1><p class="mu">Explore seven fruits with growing, nutrition, safety, storage and preparation guides.</p></div><a class="btn" href="#scanner">Open scanner</a></div>
+    <div class="browse-tools"><input id="produce-q" placeholder="Search produce by name or scientific name…" aria-label="Search produce"><select id="produce-filter"><option value="all">All fruits</option><option value="fav">Favourites</option></select></div>
+    <div class="compare-bar"><span id="compare-count">${compareSelection.length} selected for comparison (up to 3)</span><button class="ghost" data-a="compare-go">Compare nutrition</button><button class="ghost" data-a="compare-clear">Clear selection</button></div>
+    <div id="produce-results" class="produce-grid"></div>`;
+  const draw=()=>{
+    const q=($("#produce-q").value||"").toLowerCase().trim(),f=$("#produce-filter").value,fs=favsGet();
+    const list=P.filter(i=>(f==="all"||(f==="fav"&&fs.includes(i.k)))&&(!q||(i.n+" "+i.scientific+" "+i.classification).toLowerCase().includes(q)));
+    $("#produce-results").innerHTML=list.length?list.map(i=>`<article class="produce-card"><div class="produce-mark">${produceEmoji[i.k]||"🌱"}</div><h3>${esc(i.n)}</h3><p>${esc(i.kind)} · <i>${esc(i.scientific)}</i></p><p>${esc(i.description)}</p><div class="card-actions"><a class="btn" href="#item/${i.k}">Explore</a><button class="fav-btn" data-a="fav" data-k="${i.k}">${fs.includes(i.k)?"★":"☆"} Favourite</button><label class="mu"><input type="checkbox" data-compare="${i.k}" ${compareSelection.includes(i.k)?"checked":""}> Compare</label></div></article>`).join(""):empty("No produce found","Try another name or filter.");
+    $("#compare-count").textContent=compareSelection.length+" selected for comparison (up to 3)";
+  };
+  $("#produce-q").oninput=draw;$("#produce-filter").onchange=draw;draw();
+}
+function comparePage(){
+  const items=compareSelection.map(k=>P.find(i=>i.k===k)).filter(Boolean);
+  $("#app").innerHTML=`<a href="#browse">← Back to Explore Produce</a><h1>Nutrition comparison</h1>${items.length<2?empty("Select at least two items","Choose up to three produce items from Explore Produce, then compare their nutrition per 100 g."):`<div class="compare-table"><table><thead><tr><th>Nutrition per 100 g</th>${items.map(i=>`<th>${esc(i.n)}</th>`).join("")}</tr></thead><tbody>${[["Energy","kcal"],["Protein","protein"],["Carbohydrate","carbohydrate"],["Fat","fat"],["Fibre","fibre"],["Water","water"]].map(([label,key])=>`<tr><td>${label}</td>${items.map(i=>`<td>${key==="kcal"?i.nutrition.kcal:i.nutrition[key]}${key==="kcal"?"":" g"}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`}
+  <div class="row"><a class="ghost" href="#browse">Change selection</a><button class="ghost" data-a="compare-clear">Clear comparison</button></div><p class="safety-note">Values are approximate and may vary by variety, ripeness and preparation. A comparison is not a recommendation for an individual diet.</p>`;
+}
+function toggleFavourite(k){
+  const a=favsGet(),next=a.includes(k)?a.filter(x=>x!==k):[...a,k];favsSet(next);
+  if(location.hash.startsWith("#item/"))item(k);
+  else if(location.hash==="#browse")browse();
+  toast(next.includes(k)?"Added to favourites":"Removed from favourites");
+}
+function downloadProfile(k){
+  const i=P.find(x=>x.k===k);if(!i)return;
+  const blob=new Blob([JSON.stringify(i,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+  a.href=url;a.download=`produce-ai-${i.k}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+/* ---------- History ---------- */
+async function hist(){
+  scans=await getAll();
+  $("#app").innerHTML=`<h1>Scan history</h1><p class="mu">Saved on this browser and device only. It is not synced between devices.</p>
+  <div class="row"><input id="q" placeholder="Search scans"><select id="ft"><option value="">All produce</option>${[...new Set(scans.map(s=>s.name))].sort().map(n=>`<option>${esc(n)}</option>`).join("")}</select><select id="so"><option value="n">Newest first</option><option value="o">Oldest first</option></select><button class="ghost" data-a="clr">Clear all</button></div><div class="card" id="hl"></div>`;
+  const draw=()=>{const q=$("#q").value.toLowerCase(),f=$("#ft").value,o=$("#so").value;
+    const l=scans.filter(s=>(!f||s.name===f)&&(!q||(s.name+" "+fmtD(s.ts)).toLowerCase().includes(q))).sort((a,b)=>o==="n"?b.ts-a.ts:a.ts-b.ts);
+    $("#hl").innerHTML=l.length?l.map(s=>`<div class="rw"><img src="${s.img}" alt=""><div><b>${esc(s.name)}</b> · ${pct(s.conf)}<div class="mu"><small>${fmtD(s.ts)}</small></div></div><span></span><div class="row"><button class="ghost" data-a="view" data-id="${s.id}">View</button><button class="ghost" data-a="del" data-id="${s.id}">Delete</button></div></div>`).join(""):empty(scans.length?"No matches":"No saved scans","Scan produce and press Save result to build your history.")};
+  $("#q").oninput=$("#ft").onchange=$("#so").onchange=draw;draw()
+}
+function view(id){
+  const s=scans.find(x=>x.id===id);if(!s)return;const i=info(s.name),m=document.createElement("div");m.className="md";
+  m.innerHTML=`<div class="mc"><img src="${s.img}" alt=""><h2>${esc(s.name)} · ${pct(s.conf)}</h2><p class="mu">${fmtD(s.ts)}<br><small>ID ${esc(s.id)}</small></p>${bars(s.scores.map(x=>[x.n,x.p*100,pct(x.p)]),true)}<div class="row">${i?`<a class="ghost" href="#item/${i.k}" data-a="x">Produce details</a>`:""}<button class="ghost" data-a="del" data-id="${s.id}">Delete</button><button class="btn" data-a="x">Close</button></div></div>`;
+  document.body.append(m)
+}
+
+/* ---------- Analytics ---------- */
+function act(t,n){
+  const d=new Date();d.setHours(0,0,0,0);const o=[];
+  for(let i=n-1;i>=0;i--){let a,b,l;
+    if(t==="m"){a=new Date(d.getFullYear(),d.getMonth()-i,1);b=new Date(d.getFullYear(),d.getMonth()-i+1,1);l=a.toLocaleString(undefined,{month:"short"})}
+    else{const k=t==="d"?1:7;b=new Date(d);b.setDate(b.getDate()+1-i*k);a=new Date(b);a.setDate(a.getDate()-k);l=t==="d"?a.getDate():(a.getMonth()+1)+"/"+a.getDate()}
+    o.push([l,scans.filter(s=>s.ts>=a&&s.ts<b).length])}
+  const mx=Math.max(1,...o.map(x=>x[1]));
+  return`<div class="cols">${o.map(([l,v])=>`<div class="col"><span>${v||""}</span><div class="bw"><i style="height:${v/mx*100}%"></i></div><span>${l}</span></div>`).join("")}</div>`
+}
+async function ana(){
+  scans=await getAll();const n=scans.length;
+  if(!n){$("#app").innerHTML=`<h1>Analytics</h1><div class="card">${empty("Not enough data yet","Save some scans from the Scanner and your analytics will appear here.")}</div>`;return}
+  const ent=Object.entries(count(scans)).sort((a,b)=>b[1]-a[1]),avg=scans.reduce((s,x)=>s+x.conf,0)/n,last=scans.slice().sort((a,b)=>b.ts-a.ts)[0];
+  const bk=[["Below 50%",0,.5],["50–70%",.5,.7],["70–90%",.7,.9],["90–100%",.9,1.01]].map(([l,a,b])=>[l,scans.filter(s=>s.conf>=a&&s.conf<b).length]);
+  $("#app").innerHTML=`<h1>Analytics</h1><div class="grid">${card("Total scans",n)}${card("Average confidence",pct(avg))}${card("Most detected",esc(ent[0][0])+" ("+ent[0][1]+")")}${card("Least detected",esc(ent[ent.length-1][0])+" ("+ent[ent.length-1][1]+")")}${card("Most recent",esc(last.name))}${card("Unique items",ent.length)}</div>
+  <div class="two"><section class="card"><h3>Confidence distribution</h3>${bars(bk.map(([l,v])=>[l,v/n*100,v]))}</section>
+  <section class="card"><h3>Daily activity (14 days)</h3>${act("d",14)}</section><section class="card"><h3>Weekly activity (8 weeks)</h3>${act("w",8)}</section>
+  <section class="card"><h3>Monthly activity (6 months)</h3>${act("m",6)}</section><section class="card"><h3>Prediction distribution</h3>${bars(ent.map(([a,b])=>[a,b/ent[0][1]*100,b]),true)}</section></div>`
+}
+
+/* ---------- Settings & About ---------- */
+const dl=(name,type,text)=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+async function exp(t){
+  const l=await getAll();if(!l.length)return toast("No scans to export");l.sort((a,b)=>a.ts-b.ts);
+  if(t==="json")return dl("produce-ai-history.json","application/json",JSON.stringify(l.map(({img,...r})=>r),null,2));
+  const L=[...new Set(l.flatMap(s=>s.scores.map(x=>x.n)))],q=v=>`"${String(v).replace(/"/g,'""')}"`;
+  dl("produce-ai-history.csv","text/csv",[["id","date","time","produce","confidence",...L].map(q).join(","),...l.map(s=>{const d=new Date(s.ts);return[s.id,d.toLocaleDateString(),d.toLocaleTimeString(),s.name,s.conf,...L.map(n=>(s.scores.find(x=>x.n===n)||{}).p??"")].map(q).join(",")})].join("\n"))
+}
+function sets(){
+  $("#app").innerHTML=`<h1>Settings</h1><div class="two"><section class="card"><h3>Preferences</h3>
+  <div class="row"><label>Theme</label><select id="s1"><option value="dark">Dark</option><option value="light">Light</option></select></div>
+  <div class="row"><label>Default camera</label><select id="s2"><option value="environment">Rear</option><option value="user">Front</option></select></div>
+  <div class="row"><label>Predictions shown</label><select id="s3"><option>3</option><option>5</option><option value="all">All</option></select></div>
+  <div class="row"><label><input type="checkbox" id="s4"> Sound effect after analysis</label></div></section>
+  <section class="card"><h3>Model</h3><p>Status: <span class="ms"></span></p><p class="mu"><small>Classes read from model metadata: ${labels.length?esc(labels.join(", ")):"not loaded"}</small></p>
+  <div class="row"><input id="mu" style="flex:1" placeholder="Model URL (optional override)" value="${esc(localStorage.getItem("murl")||CFG.MODEL_URL)}"><button class="ghost" data-a="mu">Save and reload</button></div><small class="mu">Version ${CFG.VERSION}</small></section>
+  <section class="card"><h3>Data</h3><p class="mu">Scan history is stored locally on this device and browser.</p><div class="row"><button class="ghost" data-a="csv">Export CSV</button><button class="ghost" data-a="json">Export JSON</button><button class="ghost" data-a="clr">Clear scan history</button><button class="ghost" data-a="rst">Reset all local data</button></div></section>
+  <section class="card"><h3>More</h3><a href="#about">About PRODUCE AI</a></section></div>`;
+  [["s1","theme"],["s2","cam"],["s3","top"]].forEach(([id,k])=>{const e=$("#"+id);e.value=S[k];e.onchange=()=>{S[k]=e.value;if(k==="cam")facing=e.value;saveS()}});
+  $("#s4").checked=S.sound;$("#s4").onchange=e=>{S.sound=e.target.checked;saveS()}
+}
+function about(){
+  $("#app").innerHTML=`<h1>About PRODUCE AI</h1><div class="two"><section class="card"><h3>What it does</h3><p>PRODUCE AI identifies fruit and estimates its visual edibility class from a photo or live camera frame using an image classification model trained with Google Teachable Machine.</p><p style="margin-top:8px">Image classification assigns one score to each known class for the whole image. It does not find or count several objects in one picture.</p></section>
+  <section class="card"><h3>Supported classes</h3><p>${labels.length?esc(labels.join(", ")):"Loaded from the model's metadata once the model is ready."}</p></section>
+  <section class="card"><h3>Confidence and limits</h3><p>The percentage is the model's score for that class, not a guarantee. Results can be wrong, especially with poor lighting, unusual angles, mixed items, or produce the model wasn't trained on.</p></section>
+  <section class="card"><h3>Privacy</h3><p>Predictions run in your browser. Images are not uploaded to a server by this app. Saved scans live in your browser's IndexedDB on this device only, with no account and no sync. The model files themselves are downloaded from Teachable Machine's hosting.</p></section></div>`
+}
+
+
+document.addEventListener("click",e=>{
+  const tab=e.target.closest("[data-tab]");
+  if(tab){e.preventDefault();item(tab.dataset.k,tab.dataset.tab)}
+});
+document.addEventListener("change",e=>{
+  if(e.target.matches("[data-compare]")){
+    const k=e.target.dataset.compare;
+    if(e.target.checked){
+      if(compareSelection.length>=3){e.target.checked=false;toast("Compare up to three items at a time");return}
+      if(!compareSelection.includes(k))compareSelection.push(k);
+    }else compareSelection=compareSelection.filter(x=>x!==k);
+    const c=$("#compare-count");if(c)c.textContent=compareSelection.length+" selected for comparison (up to 3)";
+  }
+});
+
+/* ---------- events ---------- */
+document.addEventListener("click",async e=>{
+  if(e.target.classList.contains("md"))return e.target.remove();
+  const t=e.target.closest("[data-a]");if(!t)return;const a=t.dataset.a,id=t.dataset.id;
+  if(a==="fav")toggleFavourite(t.dataset.k);
+  else if(a==="print")window.print();
+  else if(a==="download-profile")downloadProfile(t.dataset.k);
+  else if(a==="compare-go")location.hash="#compare";
+  else if(a==="compare-clear"){compareSelection=[];if(location.hash==="#compare")comparePage();else if(location.hash==="#browse")browse()}
+  else if(a==="cam"){stage("live");startCam()}
+  else if(a==="up")$("#fi").click();
+  else if(a==="flip"){facing=facing==="user"?"environment":"user";startCam()}
+  else if(a==="stop")stage("idle");
+  else if(a==="cap"){const v=$("#v");if(!v||!v.videoWidth)return;const c=document.createElement("canvas");c.width=v.videoWidth;c.height=v.videoHeight;c.getContext("2d").drawImage(v,0,0);pend=c.toDataURL("image/jpeg",.9);stage("prev")}
+  else if(a==="retake"||a==="again"){pend=null;cur=null;$("#res").innerHTML="";stage("idle")}
+  else if(a==="an")analyze();
+  else if(a==="save"){if(!cur)return;await put(cur);t.textContent="Saved";t.disabled=true;toast("Scan saved")}
+  else if(a==="view")view(id);
+  else if(a==="x")t.closest(".md").remove();
+  else if(a==="del"){if(!confirm("Delete this scan?"))return;await del(id);document.querySelectorAll(".md").forEach(m=>m.remove());route()}
+  else if(a==="clr"){if(!confirm("Delete ALL saved scans? This cannot be undone."))return;await clr();toast("History cleared");route()}
+  else if(a==="rst"){if(!confirm("Reset all local data (scans and settings)? This cannot be undone."))return;await clr();localStorage.clear();location.reload()}
+  else if(a==="csv"||a==="json")exp(a);
+  else if(a==="mu"){const v=$("#mu").value.trim();v?localStorage.setItem("murl",v):localStorage.removeItem("murl");model=null;labels=[];loadModel().then(()=>route())}
+});
+document.addEventListener("change",e=>{if(e.target.id==="fi")file(e.target.files[0])});
+window.addEventListener("hashchange",route);
+saveS();route();loadModel();
+</script>
+<script>
+// PWA install and offline shell support. Camera and model inference still require HTTPS and model/network availability.
+let installPromptEvent=null;
+const installButton=document.getElementById("installApp");
+window.addEventListener("beforeinstallprompt",event=>{event.preventDefault();installPromptEvent=event;installButton.classList.add("visible");});
+installButton?.addEventListener("click",async()=>{if(!installPromptEvent){alert("On iPhone: open this site in Safari, tap Share, then Add to Home Screen.");return;}installPromptEvent.prompt();await installPromptEvent.userChoice;installPromptEvent=null;installButton.classList.remove("visible");});
+window.addEventListener("appinstalled",()=>{installButton.classList.remove("visible");installPromptEvent=null;});
+if("serviceWorker" in navigator && location.protocol.startsWith("http")){window.addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js").catch(err=>console.warn("PWA service worker registration failed",err)));}
+</script>
+</body>
+</html>
